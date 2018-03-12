@@ -7,6 +7,7 @@ ENV PYTHIA_RUNNER /app/pythia_runner.sh
 # example call: RUN ./app/pythia8226_export/zprime/calc_zprime 0.02 3250
 ADD ./pythia/pythia8226_export ${PYTHIA_PATH}
 ADD ./pythia/pythia_runner.sh ${PYTHIA_RUNNER}
-ADD target/gs-spring-boot-docker-0.1.0.jar app.jar
+ADD target/zprime-service-0.1.0.jar app.jar
 # ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
-CMD ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+# CMD ["java","-Djava.security.egd=file:/dev/./urandom", "-Xdebug", "-Xrunjdwp:server=y,transport=dt_socket,suspend=n", "-jar","/app.jar"]
+CMD ["java","-Djava.security.egd=file:/dev/./urandom", "-Xdebug", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000", "-jar","/app.jar"]

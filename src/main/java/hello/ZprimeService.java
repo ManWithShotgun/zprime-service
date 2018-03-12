@@ -22,8 +22,10 @@ public class ZprimeService {
 
     @RequestMapping("/")
     public String home() {
-        send();
-        return "Hello Docker World";
+//        send();
+        logger.warn("Test hot reload");
+        logger.warn("das");
+        return "Hello Docker World123";
     }
 
     public void send() {

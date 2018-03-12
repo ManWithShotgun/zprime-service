@@ -1,3 +1,4 @@
+spring.devtools.remote.secret: mysecret
 server:
   port: 8080
 

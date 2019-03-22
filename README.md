@@ -3,6 +3,12 @@
 # maven compiler plugin invalid target release: 11
 Resolution: JAVA_HOME java should be the same as in version of java in project
 
+# /bin/bash^M: bad interpreter: No such file or directory
+
+[source](https://stackoverflow.com/a/14219160)
+
+In Notepad++ open `.sh` and in the bottom right of the screen select `Unix (LF)` then save file
+
 ---
 # Debug
 

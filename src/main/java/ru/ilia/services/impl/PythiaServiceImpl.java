@@ -32,7 +32,7 @@ public class PythiaServiceImpl implements PythiaService {
     public PythiaServiceImpl(Environment environment) {
         if (environment.getProperty(PYTHIA_PATH_PROP) == null) {
             // if empty then exception
-            throw new RuntimeException("Path to sh should be defined");
+//            throw new RuntimeException("Path to sh should be defined");
         }
         logger.info("env: " + environment.getProperty(PYTHIA_PATH_PROP));
         String pythiaPath = environment.getProperty(PYTHIA_PATH_PROP);
@@ -58,7 +58,6 @@ public class PythiaServiceImpl implements PythiaService {
             onProcessExit.thenAccept(ph -> {
                 logger.info("PID: has stopped: " + ph.pid());
             });
-            System.out.println(process.pid());
         } catch (IOException | InterruptedException | ExecutionException e) {
             logger.error(e.getMessage(), e);
         }

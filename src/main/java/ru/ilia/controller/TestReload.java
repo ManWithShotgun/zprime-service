@@ -1,4 +1,4 @@
-package hello;
+package ru.ilia.controller;
 
 public class TestReload {
 

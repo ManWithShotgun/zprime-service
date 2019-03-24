@@ -77,7 +77,7 @@ docker run -v d:/MyPrograms/Java/_spring/zprime-service/target:/data -p 8080:808
 
 # Copy result to host
 
-docker cp cfd:/app/pythia8226_export/zprime/table_0.003.txt table_0.003.txt
+docker cp <containderId>:/app/pythia8226_export/zprime/table_0.003.txt table_0.003.txt
 
 ---
 # Helpful

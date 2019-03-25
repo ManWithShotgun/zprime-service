@@ -17,3 +17,11 @@ endpoints:
     enabled: true
   shutdown:
     enabled: true
+
+amazon:
+  aws:
+    accesskey: key
+    secretkey: secret
+  dynamodb:
+    endpoint: http://localhost:8000/
+    region: localhost

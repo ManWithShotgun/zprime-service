@@ -25,7 +25,7 @@ public class ZprimeControllerImpl implements ZprimeController {
 
     @GetMapping("/point")
     @Override
-    public String getPoint(@RequestParam("ksi")String ksi, @RequestParam("mass")String mass) {
+    public String getPoint(@RequestParam("ksi") String ksi, @RequestParam("mass") String mass) {
         if (StringUtils.isBlank(ksi) || StringUtils.isBlank(mass)) {
             logger.warn("Ksi or mass is empty");
             throw new IllegalArgumentException("Ksi or mass is empty");

@@ -86,3 +86,22 @@ docker cp <containderId>:/app/pythia8226_export/zprime/table_0.003.txt table_0.0
 [source](https://stackoverflow.com/a/823525)
 Q: Multiple threads reading from the same file
 A: If you don't write to them, no need to take care of sync / race condition.
+
+---
+# # DynamoDB on localhost (Docker)
+
+[example](https://dzone.com/articles/getting-started-with-dynamodb-and-spring)
+[git](https://github.com/smartinrub/spring-boot-dynamodb)
+
+## ## Install
+[source](https://medium.com/devopslinks/dynamodb-on-localhost-9c502f07056e)
+
+## ## Config
+[source](https://github.com/ruanbekker/dynamodb-local-docker/blob/master/README.md)
+
+## ## Get all items from table
+
+```shell
+aws dynamodb scan --table-name Hotels --endpoint-url http://localhost:8000
+```
+

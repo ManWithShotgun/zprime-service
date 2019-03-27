@@ -64,6 +64,7 @@ and Remote connection from IDEA
 hot reload class: Ctrl + Shift + F9
 
 ---
+docker build -t zprime:demo .
 
 docker run -p 8080:8080 -p 8000:8000 --name zprime --rm=true zprime:demo
 

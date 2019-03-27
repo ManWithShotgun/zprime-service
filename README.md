@@ -138,3 +138,14 @@ com.amazonaws.auth.profile.ProfileCredentialsProvider@21457192: profile file can
 
 Resolution:
 Should be defined by `aws-cli` (see Config section here)
+
+# # Redis
+[example](https://www.baeldung.com/spring-data-redis-tutorial)
+
+```shell
+docker pull redis
+```
+
+```shell
+docker run -p 6379:6379 -d redis
+```

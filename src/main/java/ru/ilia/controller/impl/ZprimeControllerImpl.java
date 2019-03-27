@@ -37,14 +37,18 @@ public class ZprimeControllerImpl implements ZprimeController {
         }
         // TODO: the controller should use repository
         PythiaRequest pythiaRequest = new PythiaRequest(ksi, mass);
-//        pythiaService.calculate(pythiaRequest);
-//        return pythiaService.getResultFromFile(pythiaRequest);
+        pythiaService.calculate(pythiaRequest);
+        return pythiaService.getResultFromFile(pythiaRequest);
+//        testRedis();
+//        return "";
+    }
+
+    private void testRedis() {
         ZprimeItem zprimeItem = new ZprimeItem(213L, "qwe", "qqq", "qwe");
         zprimeRepository.save(zprimeItem);
         zprimeRepository.save(zprimeItem);
         zprimeRepository.findAll().forEach(zprimeItem1 -> {
             System.out.println(zprimeItem1.getId());
         });
-        return "";
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import ru.ilia.services.PythiaService;
 import ru.ilia.services.PythiaRequest;
 
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -53,6 +53,18 @@ public class PythiaServiceImpl implements PythiaService {
             processBuilder.redirectError(ProcessBuilder.Redirect.INHERIT);
             Process process = processBuilder.start();
             logger.info("PID: has started: " + process.pid());
+
+            InputStream stdout = process.getInputStream();
+            BufferedReader reader = new BufferedReader (new InputStreamReader(stdout));
+
+            String line;
+            String lastLine = "";
+            while ((line = reader.readLine ()) != null) {
+//                System.out.println ("Stdout: " + line);
+                lastLine = line;
+            }
+            // TODO: validate that last line is a result
+            System.out.println("Last line: " + lastLine);
             CompletableFuture<Process> onProcessExit = process.onExit();
             process = onProcessExit.get(); // sync mode
             onProcessExit.thenAccept(ph -> {

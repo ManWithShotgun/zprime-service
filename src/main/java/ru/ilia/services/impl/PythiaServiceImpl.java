@@ -6,13 +6,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
-import ru.ilia.services.PythiaService;
 import ru.ilia.services.PythiaRequest;
+import ru.ilia.services.PythiaService;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -47,32 +51,67 @@ public class PythiaServiceImpl implements PythiaService {
     @Override
     public void calculate(PythiaRequest request) {
         try {
-            String[] commands = new String[]{PYTHIA_RUNNER, request.getKsi(), request.getMass()};
-            ProcessBuilder processBuilder = new ProcessBuilder(commands);
-//            processBuilder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
-            processBuilder.redirectError(ProcessBuilder.Redirect.INHERIT);
-            Process process = processBuilder.start();
+
+            Process process = startProcess(request);
             logger.info("PID: has started: " + process.pid());
-
-            InputStream stdout = process.getInputStream();
-            BufferedReader reader = new BufferedReader (new InputStreamReader(stdout));
-
-            String line;
-            String lastLine = "";
-            while ((line = reader.readLine ()) != null) {
-//                System.out.println ("Stdout: " + line);
-                lastLine = line;
-            }
-            // TODO: validate that last line is a result
-            System.out.println("Last line: " + lastLine);
-            CompletableFuture<Process> onProcessExit = process.onExit();
-            process = onProcessExit.get(); // sync mode
-            onProcessExit.thenAccept(ph -> {
-                logger.info("PID: has stopped: " + ph.pid());
-            });
+            String result = getProcessResultSync(process.getInputStream());
+            logger.info("Result: " + result);
+            waitEndOfProcessSync(process);
         } catch (IOException | InterruptedException | ExecutionException e) {
             logger.error(e.getMessage(), e);
         }
+    }
+
+    private Process startProcess(PythiaRequest request) throws IOException {
+        String[] commands = new String[]{PYTHIA_RUNNER, request.getKsi(), request.getMass()};
+        ProcessBuilder processBuilder = new ProcessBuilder(commands);
+        processBuilder.redirectError(ProcessBuilder.Redirect.INHERIT);
+        return processBuilder.start();
+    }
+
+    private String getProcessResultSync(InputStream processOutput) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(processOutput));
+        String line;
+        String lastLine = "";
+        while ((line = reader.readLine()) != null) {
+            lastLine = line;
+        }
+        return validateResult(lastLine);
+    }
+
+    // TODO: move the method into PythiaResult and throw exceptions
+    private String validateResult(String result) {
+        if (StringUtils.isBlank(result)) {
+            logger.error("Calculated result is blank");
+            return StringUtils.EMPTY;
+        }
+        if (!result.startsWith("Cross:")) {
+            logger.error("Calculated result has incorrect format");
+            return StringUtils.EMPTY;
+        }
+        String[] split = result.split("Cross:");
+        String value = split[1];
+        try {
+            Double.parseDouble(value);
+        } catch (NumberFormatException e) {
+            logger.error("Calculated result has incorrect format", e);
+            return StringUtils.EMPTY;
+        }
+        return value;
+    }
+
+
+    /**
+     * The method is useless when sync reader before was called
+     * */
+    private void waitEndOfProcessSync(Process process) throws ExecutionException, InterruptedException {
+        CompletableFuture<Process> onProcessExit = process.onExit();
+        onProcessExit.get(); // sync mode
+        onProcessExit.thenAccept(ph -> {
+            // FIXME: move functionality to read output of process here
+            // FIXME: use RandomAccess implementation for reading only last line with result of calculation
+            logger.info("PID: has stopped: " + ph.pid());
+        });
     }
 
     @Override

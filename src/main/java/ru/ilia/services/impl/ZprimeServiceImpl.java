@@ -1,16 +1,14 @@
 package ru.ilia.services.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.ilia.services.PythiaService;
 import ru.ilia.services.ZprimeService;
 
+@Slf4j
 @Service
 public class ZprimeServiceImpl implements ZprimeService {
-
-    private static final Logger logger = LoggerFactory.getLogger(ZprimeServiceImpl.class);
 
     private final PythiaService pythiaService;
 

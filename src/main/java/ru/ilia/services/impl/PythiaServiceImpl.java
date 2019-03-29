@@ -3,7 +3,6 @@ package ru.ilia.services.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
 import ru.ilia.services.PythiaProperties;
 import ru.ilia.services.PythiaRequest;
@@ -19,7 +18,6 @@ import java.util.concurrent.ExecutionException;
 // (cd app/pythia8226_export/zprime/ && ./calc_zprime 0.003 4710)
 @Slf4j
 @Service
-@EnableConfigurationProperties(PythiaProperties.class)
 public class PythiaServiceImpl implements PythiaService {
 
     // TODO: concat the fields in yaml file

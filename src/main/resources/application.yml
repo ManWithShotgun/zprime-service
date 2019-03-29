@@ -3,6 +3,11 @@ spring.devtools.remote.secret: mysecret
 server:
   port: 8080
 
+pythia:
+  pythia-path: ${PYTHIA_PATH}
+  model-dir: ${MODEL_DIR}
+  pythia-runner: ${PYTHIA_RUNNER}
+
 #TODO: figure out why I need this here and in bootstrap.yml
 spring:
   application:

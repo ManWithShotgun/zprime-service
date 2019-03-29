@@ -3,8 +3,9 @@ package ru.ilia.services.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
+import ru.ilia.services.PythiaProperties;
 import ru.ilia.services.PythiaRequest;
 import ru.ilia.services.PythiaService;
 
@@ -22,28 +23,26 @@ import java.util.concurrent.ExecutionException;
 // (cd app/pythia8226_export/zprime/ && ./calc_zprime 0.003 4710)
 @Slf4j
 @Service
+@EnableConfigurationProperties(PythiaProperties.class)
 public class PythiaServiceImpl implements PythiaService {
 
-    public static final String PYTHIA_PATH_PROP = "PYTHIA_PATH";
-    public static final String MODEL_DIR_PROP = "MODEL_DIR";
-    public static final String PYTHIA_RUNNER_PROP = "PYTHIA_RUNNER";
-
+    // TODO: concat the fields in yaml file
     private final String PYTHIA_RESULT_FORMAT;
     private final String PYTHIA_RUNNER;
 
     @Autowired
-    public PythiaServiceImpl(Environment environment) {
-        if (environment.getProperty(PYTHIA_PATH_PROP) == null) {
+    public PythiaServiceImpl(PythiaProperties properties) {
+        if (properties.getPythiaPath() == null) {
             // if empty then exception
 //            throw new RuntimeException("Path to sh should be defined");
         }
-        log.info("env: " + environment.getProperty(PYTHIA_PATH_PROP));
-        String pythiaPath = environment.getProperty(PYTHIA_PATH_PROP);
-        String modelDir = environment.getProperty(MODEL_DIR_PROP);
+        log.info("env: " + properties.getPythiaPath());
+        String pythiaPath = properties.getPythiaPath();
+        String modelDir = properties.getModelDir();
         // read data from folder PYTHIA_PATH + MODEL_DIR
         // table_{corner}.txt
         // table_0.003.txt -> 0.00572394 4710 0.003
-        this.PYTHIA_RUNNER = environment.getProperty(PYTHIA_RUNNER_PROP);
+        this.PYTHIA_RUNNER = properties.getPythiaRunner();
         this.PYTHIA_RESULT_FORMAT = pythiaPath + modelDir + "/table_%s.txt";
     }
 
@@ -144,3 +143,4 @@ public class PythiaServiceImpl implements PythiaService {
         return results;
     }
 }
+

@@ -13,10 +13,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -29,7 +25,6 @@ public class PythiaServiceImpl implements PythiaService {
     public static final String MODEL_DIR_PROP = "MODEL_DIR";
     public static final String PYTHIA_RUNNER_PROP = "PYTHIA_RUNNER";
 
-    private final String PYTHIA_RESULT_FORMAT;
     private final String PYTHIA_RUNNER;
 
     @Autowired
@@ -45,21 +40,21 @@ public class PythiaServiceImpl implements PythiaService {
         // table_{corner}.txt
         // table_0.003.txt -> 0.00572394 4710 0.003
         this.PYTHIA_RUNNER = environment.getProperty(PYTHIA_RUNNER_PROP);
-        this.PYTHIA_RESULT_FORMAT = pythiaPath + modelDir + "/table_%s.txt";
     }
 
     @Override
-    public void calculate(PythiaRequest request) {
+    public String calculate(final PythiaRequest request) {
+        String result = StringUtils.EMPTY;
         try {
-
             Process process = startProcess(request);
             logger.info("PID: has started: " + process.pid());
-            String result = getProcessResultSync(process.getInputStream());
+            result = getProcessResultSync(process.getInputStream());
             logger.info("Result: " + result);
             waitEndOfProcessSync(process);
         } catch (IOException | InterruptedException | ExecutionException e) {
             logger.error(e.getMessage(), e);
         }
+        return result;
     }
 
     private Process startProcess(PythiaRequest request) throws IOException {
@@ -103,7 +98,7 @@ public class PythiaServiceImpl implements PythiaService {
 
     /**
      * The method is useless when sync reader before was called
-     * */
+     */
     private void waitEndOfProcessSync(Process process) throws ExecutionException, InterruptedException {
         CompletableFuture<Process> onProcessExit = process.onExit();
         onProcessExit.get(); // sync mode
@@ -112,36 +107,5 @@ public class PythiaServiceImpl implements PythiaService {
             // FIXME: use RandomAccess implementation for reading only last line with result of calculation
             logger.info("PID: has stopped: " + ph.pid());
         });
-    }
-
-    @Override
-    public String getResultFromFile(PythiaRequest request) {
-        Map<String, String> results = readResultsFromFile(String.format(PYTHIA_RESULT_FORMAT, request.getKsi()));
-        String result = results.get(request.getMass());
-        if (StringUtils.isEmpty(result)) {
-            logger.error(String.format("Result for mass %s not found", request));
-            return StringUtils.EMPTY;
-        }
-        return result;
-    }
-
-    private Map<String, String> readResultsFromFile(String path) {
-        Path pathToFile = Path.of(path);
-        Map<String, String> results = new HashMap();
-        if (!Files.exists(pathToFile)) {
-            logger.error(String.format("File %s doest not exist", path));
-            return results;
-        }
-        try {
-            Files.readAllLines(pathToFile).forEach(
-                    line -> {
-                        String[] split = line.split(StringUtils.SPACE);
-                        results.put(split[1], split[0]);
-                    }
-            );
-        } catch (IOException e) {
-            logger.error(e.getMessage(), e);
-        }
-        return results;
     }
 }

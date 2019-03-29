@@ -1,8 +1,7 @@
 package ru.ilia.controller.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,10 +12,9 @@ import ru.ilia.data.repository.ZprimeRepository;
 import ru.ilia.services.PythiaRequest;
 import ru.ilia.services.PythiaService;
 
+@Slf4j
 @RestController
 public class ZprimeControllerImpl implements ZprimeController {
-
-    private static final Logger logger = LoggerFactory.getLogger(ZprimeControllerImpl.class);
 
     private final PythiaService pythiaService;
 
@@ -32,7 +30,7 @@ public class ZprimeControllerImpl implements ZprimeController {
     @Override
     public String getPoint(@RequestParam("ksi") String ksi, @RequestParam("mass") String mass) {
         if (StringUtils.isBlank(ksi) || StringUtils.isBlank(mass)) {
-            logger.warn("Ksi or mass is empty");
+            log.warn("Ksi or mass is empty");
             throw new IllegalArgumentException("Ksi or mass is empty");
         }
         // TODO: the controller should use repository

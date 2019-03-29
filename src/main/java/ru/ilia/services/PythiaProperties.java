@@ -1,12 +1,19 @@
 package ru.ilia.services;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.constraints.NotBlank;
 
 @ConfigurationProperties("pythia")
+@Validated
 public class PythiaProperties {
 
+    @NotBlank
     private String pythiaPath;
+    @NotBlank
     private String modelDir;
+    @NotBlank
     private String pythiaRunner;
 
     public String getPythiaPath() {

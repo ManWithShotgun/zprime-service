@@ -1,36 +1,36 @@
-spring.profiles.active: dev
-spring.devtools.remote.secret: mysecret
 server:
-  port: 8080
+    port: 8080
 
 pythia:
-  pythia-path: ${PYTHIA_PATH}
-  model-dir: ${MODEL_DIR}
-  pythia-runner: ${PYTHIA_RUNNER}
+    pythia-path: ${PYTHIA_PATH}
+    model-dir: ${MODEL_DIR}
+    pythia-runner: ${PYTHIA_RUNNER}
 
 #TODO: figure out why I need this here and in bootstrap.yml
 spring:
-  application:
-    name: testLatticeApp
+    profiles.active: dev
+    devtools.remote.secret: mysecret
+    application:
+        name: testLatticeApp
+    redis:
+        host: redis
+        port: 6379
 
 ribbon:
-  ServerListRefreshInterval: 1000
+    ServerListRefreshInterval: 1000
 
 endpoints:
-  health:
-    sensitive: false
-  restart:
-    enabled: true
-  shutdown:
-    enabled: true
+    health:
+        sensitive: false
+    restart:
+        enabled: true
+    shutdown:
+        enabled: true
 
 amazon:
-  aws:
-    accesskey: key
-    secretkey: secret
-  dynamodb:
-    endpoint: http://localhost:8000/
-    region: localhost
-
-spring.redis.host: localhost
-spring.redis.port: 6379
+    aws:
+        accesskey: key
+        secretkey: secret
+    dynamodb:
+        endpoint: http://localhost:8000/
+        region: localhost

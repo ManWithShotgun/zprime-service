@@ -82,12 +82,60 @@ docker run -v d:/Root/MyPrograms/Java/zprime-service/target:/data -p 8080:8080 -
 docker cp <containderId>:/app/pythia8226_export/zprime/table_0.003.txt table_0.003.txt
 
 ---
-# Helpful
+# Helpful (Linux)
 
 
 [source](https://stackoverflow.com/a/823525)
 Q: Multiple threads reading from the same file
 A: If you don't write to them, no need to take care of sync / race condition.
+
+---
+# # Redis
+
+docker run -p 6379:6389 --name redis --rm=true redis
+
+[source](https://stackoverflow.com/a/51647172)
+
+> Redis Template is thread safe but only when it uses connection pooling
+
+I have checked `JedisConnectionFactory` uses pool by default as it can be inspected by using `getUsePool` method 
+(returns true) and checking the pool config using `getPoolConfig` method gives you `maxTotal=8`, `maxIdle=8` and `minIdle=0`
+
+Yes, `JedisConnectionFactory` uses pool by default but the number of simultaneous connections 
+(multi-threading environment) are 8 by default and for heavy load applications, these default configurations does not work efficiently.
+
+Code that worked correctly:
+
+```java
+@Bean
+JedisConnectionFactory jedisConnectionFactory() {
+
+    JedisConnectionFactory jedisConnectionFactory = null;
+
+    try {
+        RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration(hostName,
+                port);
+        jedisConnectionFactory = new JedisConnectionFactory(redisStandaloneConfiguration);
+        jedisConnectionFactory.getPoolConfig().setMaxTotal(50);
+        jedisConnectionFactory.getPoolConfig().setMaxIdle(50);
+    } catch (RedisConnectionFailureException e) {
+        e.getMessage();
+    }
+
+    return jedisConnectionFactory;
+}
+
+
+@Bean
+public RedisTemplate<String, Object> redisTemplate() {
+    final RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
+    template.setConnectionFactory(jedisConnectionFactory());
+    template.setValueSerializer(new GenericToStringSerializer<Object>(Object.class));
+    template.setEnableTransactionSupport(true);
+    return template;
+}
+```
+
 
 ---
 # # DynamoDB on localhost (Docker)

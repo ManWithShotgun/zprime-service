@@ -12,6 +12,8 @@ spring:
     devtools.remote.secret: mysecret
     application:
         name: testLatticeApp
+    cache:
+        type: redis
     redis:
         host: redis
         port: 6379

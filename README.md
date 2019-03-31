@@ -64,6 +64,23 @@ and Remote connection from IDEA
 hot reload class: Ctrl + Shift + F9
 
 ---
+# # Docker Compose Run
+
+```shell
+doccker-compose up
+```
+
+Stop and remove containers
+```shell
+doccker-compose down
+```
+
+Stop containers
+```shell
+doccker-compose stop 
+```
+
+---
 docker build -t zprime:demo .
 
 docker run -p 8080:8080 -p 8000:8000 --name zprime --rm=true zprime:demo
@@ -96,6 +113,8 @@ docker run -p 6379:6389 --name redis --rm=true redis
 
 [source](https://stackoverflow.com/a/51647172)
 
+---
+## ## Spring Jedis uses connection pool OOB
 > Redis Template is thread safe but only when it uses connection pooling
 
 I have checked `JedisConnectionFactory` uses pool by default as it can be inspected by using `getUsePool` method 
@@ -136,6 +155,63 @@ public RedisTemplate<String, Object> redisTemplate() {
 }
 ```
 
+## ## Save raw jedis code
+
+The code implemented for using pool of connection. The `Callback` in `execute` guarantees that `multi` and `exec` will be invoke in one thread. 
+
+```java
+// aMap is hashOperations
+// HashOperations<String, MyKey, MyValue> aMap = redisTemplate.opsForHash();
+
+//        if (aMap.hasKey("qqq", id)) {
+//            String res = (String) aMap.get("qqq", id);
+//            log.info(id + " already exists: " + res);
+//            return res;
+//        }
+//        aMap.put("qqq", id, "-1");
+        String res = (String) aMap.get("qqq", id);
+        log.info("Before: " + id + " - Has " + res);
+        template.execute(new SessionCallback<List<Object>>() {
+            public List<Object> execute(RedisOperations operations) throws DataAccessException {
+                operations.watch("qqq");
+                log.info("Start calc");
+                String result = pythiaService.calculate(new PythiaRequest(ksi, mass));
+                operations.multi();
+                aMap.put("qqq", id, result);
+                return operations.exec();
+            }
+        });
+        // if empty - call calculate
+//        pythiaService.calculate();
+        res = (String) aMap.get("qqq", id);
+        log.info(String.valueOf(aMap.size("qqq")));
+```
+
+[examples](https://www.concretepage.com/spring-4/spring-data-redis-example)
+Simple code for test that Jedis connected to redis and value save works
+```java
+ZprimeItem zprimeItem = new ZprimeItem(213L, "qwe", "qqq", "qwe");
+zprimeRepository.save(zprimeItem);
+zprimeRepository.save(zprimeItem);
+zprimeRepository.findAll().forEach(zprimeItem1 -> {
+    System.out.println(zprimeItem1.getId());
+});
+
+or
+
+MyKey key = new MyKey("Jhon", "+138129129113");
+MyValue value = new MyValue("Pushkina street", "Moscow");
+HashOperations<String, MyKey, MyValue> hashOperations = redisTemplate.opsForHash();
+hashOperations.put("myKey", key, value);
+MyValue mappedValue = hashOperations.get("myKey", key);
+MyValue newValue = new MyValue("Tverskaya street", "Moscow");
+hashOperations.putIfAbsent("myKey", key, newValue);
+```
+
+---
+## ## Jedis Cache examples
+[examples](https://www.concretepage.com/spring-boot/spring-boot-redis-cache#EnableCaching)
+[examples](https://www.journaldev.com/18141/spring-boot-redis-cache)
 
 ---
 # # DynamoDB on localhost (Docker)

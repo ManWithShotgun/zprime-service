@@ -114,6 +114,13 @@ docker run -p 6379:6389 --name redis --rm=true redis
 [source](https://stackoverflow.com/a/51647172)
 
 ---
+## ## Redis persistence
+
+[source](https://redis.io/topics/persistence)
+
+Used RDB (by default) strategy and Amazon S3 for volume
+
+---
 ## ## Spring Jedis uses connection pool OOB
 > Redis Template is thread safe but only when it uses connection pooling
 

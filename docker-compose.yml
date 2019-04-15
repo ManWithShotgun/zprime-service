@@ -4,6 +4,8 @@ services:
     redis:
         image: redis
         container_name: redis-container
+        volumes:
+          - d:/MyPrograms/Java/_spring/zprime-service/redis-data:/data
 
     zprime:
         image: zprime:demo

@@ -9,6 +9,8 @@ import ru.ilia.services.PythiaRequest;
 import ru.ilia.services.PythiaService;
 import ru.ilia.services.ZprimeService;
 
+import java.util.Map;
+
 @Slf4j
 @Service
 public class ZprimeServiceImpl implements ZprimeService {
@@ -30,6 +32,13 @@ public class ZprimeServiceImpl implements ZprimeService {
         String result = pythiaService.calculate(pythiaRequest);
         zprimeRepository.addResult(pythiaRequest, result);
         log.info(zprimeRepository.getResult(ksi, mass));
+        log.info("Size: " + zprimeRepository.getSize(ksi));
+        return result;
+    }
+
+    @Override
+    public Map<String, String> getAllResults(String ksi) {
+        Map result = zprimeRepository.getAll(ksi);
         log.info("Size: " + zprimeRepository.getSize(ksi));
         return result;
     }

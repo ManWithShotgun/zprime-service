@@ -15,7 +15,7 @@ spring:
     cache:
         type: redis
     redis:
-        host: redis
+        host: redis-zprime.xidhdd.ng.0001.euc1.cache.amazonaws.com
         port: 6379
 
 ribbon:

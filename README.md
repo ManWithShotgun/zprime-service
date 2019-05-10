@@ -67,17 +67,17 @@ hot reload class: Ctrl + Shift + F9
 # # Docker Compose Run
 
 ```shell
-doccker-compose up
+docker-compose up
 ```
 
 Stop and remove containers
 ```shell
-doccker-compose down
+docker-compose down
 ```
 
 Stop containers
 ```shell
-doccker-compose stop 
+docker-compose stop 
 ```
 
 ---

@@ -1,6 +1,7 @@
 package ru.ilia.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.WebSocketMessageBrokerStats;
@@ -12,7 +13,8 @@ import javax.annotation.PostConstruct;
 
 @Configuration
 @EnableWebSocketMessageBroker
-public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer {
+public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer, BeanPostProcessor {
+
     @Autowired
     private WebSocketMessageBrokerStats webSocketMessageBrokerStats;
 

@@ -1,15 +1,15 @@
-# Issues
+# # Issues
 
-# maven compiler plugin invalid target release: 11
+## ## maven compiler plugin invalid target release: 11
 Resolution: JAVA_HOME java should be the same as in version of java in project
 
-# /bin/bash^M: bad interpreter: No such file or directory
+## ## /bin/bash^M: bad interpreter: No such file or directory
 
 [source](https://stackoverflow.com/a/14219160)
 
 In Notepad++ open `.sh` and in the bottom right of the screen select `Unix (LF)` then save file
 
-# Spring Autowired throws NPE
+## ## Spring Autowired throws NPE
 
 [source](https://stackoverflow.com/a/41838937)
 
@@ -40,6 +40,29 @@ public class ServiceImpl {
     }
 }
 ```
+
+## ## org.springframework.context.ApplicationContextException: Failed to start bean 'subProtocolWebSocketHandler'; nested exception is java.lang.IllegalArgumentException: No handlers
+[source](https://github.com/spring-projects/spring-framework/issues/21889#issuecomment-453477953)
+
+Reproduced when run compiled jar file. It happens because call bean `webSocketMessageBrokerStats` (in `@PostConstruct`) hasn't(?) initialized inner beans.
+
+```java
+@Configuration
+@EnableWebSocketMessageBroker
+public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer {
+
+    @Autowired
+    private WebSocketMessageBrokerStats webSocketMessageBrokerStats;
+
+    @PostConstruct
+    public void init() {
+        webSocketMessageBrokerStats.setLoggingPeriod(600 * 1000);
+    }
+...
+```
+
+Resolution: implements `BeanPostProcessor` for `WebSocketConfiguration` (not need override methods).
+The solution adds few INFO logs before start app.
 
 ---
 # Debug

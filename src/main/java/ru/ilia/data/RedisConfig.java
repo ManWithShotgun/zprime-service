@@ -33,11 +33,10 @@ public class RedisConfig {
     }
 
     // TODO: rename bean
-    @Bean("redisT")
+    @Bean("redisTemplateBean")
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory);
-        template.setEnableTransactionSupport(true);
         return template;
     }
 

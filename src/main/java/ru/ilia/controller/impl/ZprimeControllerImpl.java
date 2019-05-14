@@ -30,7 +30,9 @@ public class ZprimeControllerImpl implements ZprimeController {
         // TODO: the controller should use repository
 //        PythiaRequest pythiaRequest = new PythiaRequest(ksi, mass);
 //        pythiaService.calculate(pythiaRequest);
+        log.info("Cache: startCache");
         String result = zprimeService.getResult(ksi, mass);
+        log.info("Cache: endCache");
         return result;
     }
 

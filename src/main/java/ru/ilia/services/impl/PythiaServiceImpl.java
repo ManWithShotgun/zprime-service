@@ -40,7 +40,7 @@ public class PythiaServiceImpl implements PythiaService {
     public String calculate(final PythiaRequest request) {
         try {
             Process process = startProcess(request);
-            log.info("PID: has started: " + process.pid());
+            log.info("PID: was run: " + process.pid());
             String result = getProcessResultSync(process.getInputStream());
             log.info("Result: " + result);
             waitEndOfProcessSync(process);

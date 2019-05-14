@@ -1,5 +1,6 @@
 package ru.ilia.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import ru.ilia.services.ZprimeService;
 import javax.validation.Valid;
 import java.util.Map;
 
+@Slf4j
 @Controller
 public class WebSocketController {
     private final SimpMessageSendingOperations messagingTemplate;
@@ -45,7 +47,9 @@ public class WebSocketController {
         try {
             String ksi = request.getKsi();
             String mass = request.getMass();
+            log.info("Cache: startCache");
             String result = zprimeService.getResult(ksi, mass);
+            log.info("Cache: endCache");
             // create response
             return ResponseEntity.ok(new WsOnePointResponse(ksi, mass, result));
         } catch (RuntimeException e) {

@@ -5,13 +5,13 @@ services:
         image: redis
         container_name: redis-container
         volumes:
-          - d:/MyPrograms/Java/_spring/zprime-service/redis-data:/data
+            - d:/MyPrograms/Java/_spring/zprime-service/redis-data:/data
 
     zprime:
         image: zprime:demo
         container_name: zprime
         depends_on:
-          - redis
+            - redis
         ports:
             - 8080:8080
             - 8000:8000

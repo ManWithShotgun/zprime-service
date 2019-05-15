@@ -51,7 +51,13 @@ public class PythiaServiceImpl implements PythiaService {
     }
 
     private Process startProcess(PythiaRequest request) throws IOException {
-        String[] commands = new String[]{properties.getPythiaRunner(), request.getKsi(), request.getMass()};
+        String[] commands = new String[]{
+            properties.getPythiaRunner(),
+            request.getKsi(),
+            request.getMass(),
+            request.getCountOfEvents(),
+            request.getSeed()
+        };
         ProcessBuilder processBuilder = new ProcessBuilder(commands);
         processBuilder.redirectError(ProcessBuilder.Redirect.INHERIT);
         return processBuilder.start();

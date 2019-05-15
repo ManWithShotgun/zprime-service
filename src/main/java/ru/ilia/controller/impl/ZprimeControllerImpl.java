@@ -22,7 +22,12 @@ public class ZprimeControllerImpl implements ZprimeController {
 
     @GetMapping("/point")
     @Override
-    public String getPoint(@RequestParam("ksi") String ksi, @RequestParam("mass") String mass) {
+    public String getPoint(
+        @RequestParam("ksi") String ksi,
+        @RequestParam("mass") String mass,
+        @RequestParam("events") String events,
+        @RequestParam("recalc") String recalc
+    ) {
         if (StringUtils.isBlank(ksi) || StringUtils.isBlank(mass)) {
             log.warn("Ksi or mass is empty");
             throw new IllegalArgumentException("Ksi or mass is empty");
@@ -31,7 +36,7 @@ public class ZprimeControllerImpl implements ZprimeController {
 //        PythiaRequest pythiaRequest = new PythiaRequest(ksi, mass);
 //        pythiaService.calculate(pythiaRequest);
         log.info("Cache: startCache");
-        String result = zprimeService.getResult(ksi, mass);
+        String result = zprimeService.getResult(ksi, mass, events, recalc);
         log.info("Cache: endCache");
         return result;
     }

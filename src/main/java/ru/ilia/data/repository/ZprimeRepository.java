@@ -1,7 +1,5 @@
 package ru.ilia.data.repository;
 
-import ru.ilia.services.PythiaRequest;
-
 import java.util.Map;
 
 /**
@@ -14,7 +12,7 @@ import java.util.Map;
  * */
 public interface ZprimeRepository {
 
-    void addResult(PythiaRequest pythiaRequest, String result);
+    void addResult(String ksi, String mass, String result);
 
     String getResult(String key, String id);
 

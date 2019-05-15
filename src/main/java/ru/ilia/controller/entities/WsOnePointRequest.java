@@ -14,6 +14,12 @@ public class WsOnePointRequest {
     @Valid
     @NotNull
     private String mass;
+    @Valid
+    @NotNull
+    private String events;
+    @Valid
+    @NotNull
+    private String pointCalculationQuantity;
 
     public String getKsi() {
         return ksi;
@@ -21,5 +27,13 @@ public class WsOnePointRequest {
 
     public String getMass() {
         return mass;
+    }
+
+    public String getEvents() {
+        return events;
+    }
+
+    public String getPointCalculationQuantity() {
+        return pointCalculationQuantity;
     }
 }

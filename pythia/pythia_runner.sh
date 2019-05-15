@@ -1,2 +1,2 @@
 #!/bin/bash
-(cd $PYTHIA_PATH$MODEL_DIR && ./calc_zprime $1 $2)
+(cd $PYTHIA_PATH$MODEL_DIR && ./calc_zprime $1 $2 $3 $4)

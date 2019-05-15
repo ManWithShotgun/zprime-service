@@ -7,7 +7,6 @@ import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 import ru.ilia.data.repository.ZprimeRepository;
-import ru.ilia.services.PythiaRequest;
 
 import java.util.Map;
 
@@ -23,9 +22,9 @@ public class ZprimeRepositoryImpl implements ZprimeRepository {
     }
 
     @Override
-    public void addResult(PythiaRequest pythiaRequest, String result) {
+    public void addResult(String ksi, String mass, String result) {
         log.info("Redis: add result - started");
-        hashOperations.put(pythiaRequest.getKsi(), pythiaRequest.getMass(), result);
+        hashOperations.put(ksi, mass, result);
         log.info("Redis: add result - completed");
     }
 

@@ -22,9 +22,9 @@ public class ZprimeRepositoryImpl implements ZprimeRepository {
     }
 
     @Override
-    public void addResult(String ksi, String mass, String result) {
+    public void addResult(String key, String mass, String result) {
         log.info("Redis: add result - started");
-        hashOperations.put(ksi, mass, result);
+        hashOperations.put(key, mass, result);
         log.info("Redis: add result - completed");
     }
 

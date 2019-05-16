@@ -19,7 +19,7 @@ public class WsOnePointRequest {
     private String events;
     @Valid
     @NotNull
-    private String pointCalculationQuantity;
+    private String cycles;
 
     public String getKsi() {
         return ksi;
@@ -33,7 +33,7 @@ public class WsOnePointRequest {
         return events;
     }
 
-    public String getPointCalculationQuantity() {
-        return pointCalculationQuantity;
+    public String getCycles() {
+        return cycles;
     }
 }

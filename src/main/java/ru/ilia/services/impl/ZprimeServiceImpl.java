@@ -37,9 +37,9 @@ public class ZprimeServiceImpl implements ZprimeService {
             result = calculateInCycleAverage(ksi, mass, countOfPythiaEvents, calculateCycles);
             log.info("Finish cycle calc. result: " + result);
         }
-        zprimeRepository.addResult(ksi, mass, result);
-        log.info(zprimeRepository.getResult(ksi, mass));
-        log.info("Size: " + zprimeRepository.getSize(ksi));
+        zprimeRepository.addResult(ksi + countOfPythiaEvents + countOfRecalculate, mass, result);
+        log.info(zprimeRepository.getResult(ksi + countOfPythiaEvents + countOfRecalculate, mass));
+        log.info("Size: " + zprimeRepository.getSize(ksi + countOfPythiaEvents + countOfRecalculate));
         return result;
     }
 
@@ -54,9 +54,9 @@ public class ZprimeServiceImpl implements ZprimeService {
     }
 
     @Override
-    public Map<String, String> getAllResults(String ksi) {
-        Map result = zprimeRepository.getAll(ksi);
-        log.info("Size: " + zprimeRepository.getSize(ksi));
+    public Map<String, String> getAllResults(String ksi, String countOfPythiaEvents, String countOfRecalculate) {
+        Map result = zprimeRepository.getAll(ksi + countOfPythiaEvents + countOfRecalculate);
+        log.info("Size: " + zprimeRepository.getSize(ksi + countOfPythiaEvents + countOfRecalculate));
         return result;
     }
 }

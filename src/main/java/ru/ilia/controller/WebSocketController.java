@@ -48,10 +48,10 @@ public class WebSocketController {
             String ksi = request.getKsi();
             String mass = request.getMass();
             log.info("Cache: startCache");
-            String result = zprimeService.getResult(ksi, mass, request.getEvents(), request.getPointCalculationQuantity());
+            String result = zprimeService.getResult(ksi, mass, request.getEvents(), request.getCycles());
             log.info("Cache: endCache");
             // create response
-            return ResponseEntity.ok(new WsOnePointResponse(ksi, mass, result));
+            return ResponseEntity.ok(new WsOnePointResponse(ksi, mass, request.getEvents(), request.getCycles(), result));
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -63,8 +63,8 @@ public class WebSocketController {
     public ResponseEntity<?> onGetAllResults(@Valid @RequestBody WsPointsRequest request) {
         try {
             String ksi = request.getKsi();
-            Map<String, String> result = zprimeService.getAllResults(ksi);
-            return ResponseEntity.ok(new WsPointsResponse(ksi, result));
+            Map<String, String> result = zprimeService.getAllResults(ksi, request.getEvents(), request.getCycles());
+            return ResponseEntity.ok(new WsPointsResponse(ksi, request.getEvents(), request.getCycles(), result));
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

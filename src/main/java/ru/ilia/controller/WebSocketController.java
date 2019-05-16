@@ -53,6 +53,7 @@ public class WebSocketController {
             // create response
             return ResponseEntity.ok(new WsOnePointResponse(ksi, mass, request.getEvents(), request.getCycles(), result));
         } catch (RuntimeException e) {
+            log.error(e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
@@ -66,6 +67,7 @@ public class WebSocketController {
             Map<String, String> result = zprimeService.getAllResults(ksi, request.getEvents(), request.getCycles());
             return ResponseEntity.ok(new WsPointsResponse(ksi, request.getEvents(), request.getCycles(), result));
         } catch (RuntimeException e) {
+            log.error(e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }

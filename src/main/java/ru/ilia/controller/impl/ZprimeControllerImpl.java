@@ -7,17 +7,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.ilia.controller.ZprimeController;
+import ru.ilia.services.ImportDataService;
 import ru.ilia.services.ZprimeService;
+
+import java.io.IOException;
 
 @Slf4j
 @RestController
 public class ZprimeControllerImpl implements ZprimeController {
 
     private final ZprimeService zprimeService;
+    private final ImportDataService importDataService;
 
     @Autowired
-    public ZprimeControllerImpl(ZprimeService zprimeService) {
+    public ZprimeControllerImpl(ZprimeService zprimeService, ImportDataService importDataService) {
         this.zprimeService = zprimeService;
+        this.importDataService = importDataService;
     }
 
     @GetMapping("/point")
@@ -39,6 +44,23 @@ public class ZprimeControllerImpl implements ZprimeController {
         String result = zprimeService.getResult(ksi, mass, events, recalc);
         log.info("Cache: endCache");
         return result;
+    }
+
+    @GetMapping("/import")
+    @Override
+    public String imortData(
+        @RequestParam("ksi") String ksi,
+        @RequestParam("events") String events,
+        @RequestParam("recalc") String recalc
+    ) {
+        try {
+            importDataService.importData(ksi, events, recalc);
+        } catch (IOException e) {
+            log.error(e.getMessage(), e);
+            return "Import was failed";
+        }
+        log.info("Imported");
+        return "Imported";
     }
 
 

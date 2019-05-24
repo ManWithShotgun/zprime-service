@@ -12,3 +12,7 @@ target/
 
 pythia/pythia8226_export/
 pythia/pythia_sh/
+
+angular-src/src/main/web/dist
+angular-src/src/main/web/node_modules
+angular-src/src/main/web/node

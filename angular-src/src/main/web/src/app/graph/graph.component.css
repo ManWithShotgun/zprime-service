@@ -1,0 +1,98 @@
+body {
+  font: 10px sans-serif;
+}
+
+.svg-graph {
+  background-color: white;
+}
+  
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+  
+  .axis-y-sub {
+    
+  }
+  
+  .axis-y-sub path, .axis-y-sub line {
+    display: none;
+    shape-rendering: crispEdges;
+  }
+  
+  .line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 2.5px;
+  }
+  .line-in-area {
+    fill: none;
+    stroke: black;
+    stroke-width: 1.5px;
+  }
+  .ssm-line {
+    fill: none;
+    stroke: red;
+    stroke-width: 1.5px;
+  }
+  
+  .dot {
+    fill: white;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+  }
+  .overlay {
+    fill: none;
+    pointer-events: all;
+  }
+  
+  .focus circle {
+    fill: none;
+    stroke: steelblue;
+  }
+  .legend line,
+  .lines {
+    fill: none;
+    stroke-width: 1.5px;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+  .ref-text {
+    fill: orange;
+    font-size: 25px;
+  }
+  .line-ref {
+    fill: none;
+    stroke: orange;
+    stroke-width: 1.5px;
+  }
+  .line-expected {
+    fill: none;
+    stroke: black;
+    stroke-dasharray: 7, 4, 4, 4;
+    stroke-width: 1.5px;
+  }
+  .line-observed {
+    fill: none;
+    stroke: black;
+    stroke-width: 1.5px;
+  }
+  .green-area {
+    fill: rgb(27, 255, 0);
+  }
+  .yellow-area {
+    fill: rgb(240, 255, 7);
+  }
+  .dot-middle-line {
+    fill: black;
+  }
+  .ssm-legend-text {
+    font-size: 18px;
+  }
+  .ssm-text {
+    fill: #ff4a4a;
+    font-size: 18px;
+  }
+  

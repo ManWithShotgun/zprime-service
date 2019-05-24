@@ -1,0 +1,64 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Request line</mat-card-title>
+    <mat-card-subtitle>Send request to calculate and render new line</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <form #form [formGroup]="requestData" novalidate>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Ksi" formControlName="ksi">
+            <mat-error *ngIf="requestData.controls['ksi'].hasError('required')">
+              Ksi is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="requestData.controls['ksi'].hasError('isNotDouble')">
+              Ksi should be <strong>a double</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-card-actions>
+            <button mat-raised-button color="primary" type="submit" (click)="requestLine()" [disabled]="!requestData.valid">Submit</button>
+          </mat-card-actions>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Count of modulated collision events" formControlName="events">
+            <mat-error *ngIf="requestData.controls['events'].hasError('required')">
+              Ksi is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="requestData.controls['events'].hasError('isNotDouble')">
+              Ksi should be <strong>a double</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Count of recalculation a point with random seed" formControlName="cycles">
+            <mat-error *ngIf="requestData.controls['cycles'].hasError('required')">
+              Ksi is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="requestData.controls['cycles'].hasError('isNotDouble')">
+              Ksi should be <strong>a double</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          
+        </div>
+      </div>
+    </form>
+    <!-- lines section -->
+    <div class="row row-line" *ngFor="let ksi of getLinesInfo()" (click)="removeLine(ksi.key)">
+      <div class="col mat-stroked-button col-line">
+          <p>Line KSI {{ ksi.label }} </p>
+      </div>
+      <div class="col">
+        <button type="button" (click)="removeLine(ksi.key)">
+          <mat-icon>highlight_off</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

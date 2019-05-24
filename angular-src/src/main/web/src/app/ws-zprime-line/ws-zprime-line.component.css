@@ -1,0 +1,10 @@
+@import '../ws-control/ws-control.component.css';
+
+.col-line {
+    padding: 0px;
+    line-height: 10px;
+}
+
+.row-line {
+    margin-bottom: 10px;
+}

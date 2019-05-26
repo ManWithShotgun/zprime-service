@@ -1,5 +1,7 @@
 import * as d3 from 'd3';
 import {GraphSataticData} from '../graph-static-data';
+import {HttpClient} from '@angular/common/http';
+import {LinePoints} from '../line-points';
 
 export class ResultGraph {
 
@@ -19,7 +21,7 @@ export class ResultGraph {
             .attr("xlink:href", conf.href);
     }
 
-    constructor(private selector: string) {
+    constructor(private selector: string, private http: HttpClient) {
 
     }
 
@@ -138,6 +140,25 @@ export class ResultGraph {
 
         this.renderObserved(GraphSataticData.getResultObservedData());
 
+        
+
+        this.http.get('http://localhost:8080/collisions').subscribe(this.receiveCollitions.bind(this));
+
+    }
+
+    private receiveCollitions(data) {
+        let points = new LinePoints(data);
+        let dataLines = points.getData().filter(line => {return line[0] > 500});
+        this.renderLine(dataLines);
+        let thousandFbLines = dataLines.map(line => {return [line[0], line[1] / 1.3]});
+        this.renderLine(thousandFbLines);
+    }
+
+    private renderLine(data) {
+        let line = ResultGraph.svg.append("path").style("stroke-dasharray", ("7, 4, 4, 4"));
+        line.datum(data);
+        line.attr("class", "lhc-dy-line");
+        line.attr("d", ResultGraph.logPen);
     }
 
     private renderObserved(data) {

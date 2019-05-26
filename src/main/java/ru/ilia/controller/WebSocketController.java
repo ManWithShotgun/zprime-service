@@ -47,9 +47,9 @@ public class WebSocketController {
         try {
             String ksi = request.getKsi();
             String mass = request.getMass();
-            log.info("Cache: startCache");
+            log.debug("Cache: startCache");
             String result = zprimeService.getResult(ksi, mass, request.getEvents(), request.getCycles());
-            log.info("Cache: endCache");
+            log.debug("Cache: endCache");
             // create response
             return ResponseEntity.ok(new WsOnePointResponse(ksi, mass, request.getEvents(), request.getCycles(), result));
         } catch (RuntimeException e) {

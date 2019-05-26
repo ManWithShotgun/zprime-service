@@ -33,10 +33,12 @@ import {WsZprimeLineComponent} from './ws-zprime-line/ws-zprime-line.component';
 import {WsZprimePointComponent} from './ws-zprime-point/ws-zprime-point.component';
 import {WsZprimeStatComponent} from './ws-zprime-stat/ws-zprime-stat.component';
 import {WelcomeComponent} from './welcome/welcome.component';
+import {ResultGraphComponent} from './result-graph/result-graph.component';
 
 const appRoutes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
-  { path: 'graph-2', component: Graph },
+  { path: 'graph-1', component: Graph },
+  { path: 'graph-2', component: ResultGraphComponent },
   { path: 'statistic', component: WelcomeComponent },
   { path: '',
     redirectTo: '/welcome',
@@ -46,7 +48,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    AppComponent, Graph, NavigationComponent, WsControlComponent, WsZprimeLineComponent, WsZprimePointComponent, WsZprimeStatComponent, WelcomeComponent
+    AppComponent, Graph, NavigationComponent, WsControlComponent, WsZprimeLineComponent, WsZprimePointComponent, WsZprimeStatComponent, WelcomeComponent, ResultGraphComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

@@ -93,7 +93,7 @@ export class MainGraph {
         // 1. step between points
         // 2. start mass (0)
         // 3. end mass (5000)
-        let startMass = 0;
+        let startMass = 500;
         let endMass = 5000;
         let step = 100;
         let calculatedMass = line.getData().map(point => point[0]);
@@ -117,7 +117,7 @@ export class MainGraph {
             .range([height, 0]);
 
         MainGraph.logPen = d3.svg.line()
-            .interpolate("monotone")
+            .interpolate("linear")
             .x(function(d) { return MainGraph.x(d[0]); })
             .y(function(d) { return MainGraph.y(d[1]); });
         

@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import {GraphSataticData} from '../graph-static-data';
 
 export class ResultGraph {
 
@@ -7,7 +8,7 @@ export class ResultGraph {
     public static y;
     public static logPen;
     private domainX = [500, 5000];
-    private domainY = [Math.pow(10, -4), Math.pow(10, 1)];
+    private domainY = [Math.pow(10, -4), Math.pow(10, -2)];
 
     public static renderSvg(conf): any {
         return ResultGraph.svg.append("svg:image")
@@ -82,20 +83,20 @@ export class ResultGraph {
 
         // render main legend
         ResultGraph.renderSvg({
-            x: 300,
-            y: -150,
-            width: 400,
-            height: 400,
-            href: 'https://i.imgur.com/GBsjqgs.png'
+            x: 500,
+            y: -20,
+            width: 150,
+            height: 150,
+            href: 'https://i.imgur.com/7I7mzBI.png'
         });
 
         // y sign 
         ResultGraph.renderSvg({
-            x: -160,
-            y: 100,
-            width: 250,
-            height: 250,
-            href: 'https://i.imgur.com/vuLA2Os.png'
+            x: -40,
+            y: 180,
+            width: 20,
+            height: 20,
+            href: 'https://i.imgur.com/xZsV7cb.png'
         });
 
         // x sign
@@ -106,5 +107,65 @@ export class ResultGraph {
             height: 100,
             href: 'https://i.imgur.com/uFOY07U.png'
         });
+
+        // EW constraints
+        let constraintsLine = ResultGraph.svg.append("path").style("stroke-dasharray", ("7, 4, 4, 4"));
+        constraintsLine.datum([[500, 0.00336], [5000, 0.00336]]);
+        constraintsLine.attr("class", "ew-constraints-line");
+        constraintsLine.attr("d", ResultGraph.logPen);
+        ResultGraph.svg.append("text")
+            .attr("class", 'constraints-text')
+            .attr("x", 280)         
+            .attr("y", 90)         
+            .text('EW constraints');
+
+        // LHC DY
+        let lineView = ResultGraph.svg.append("path").style("stroke-dasharray", ("7, 4, 4, 4"));
+        lineView.datum([[4250, 0.0001], [4250, 0.00336]]);
+        lineView.attr("class", "lhc-dy-line");
+        lineView.attr("d", ResultGraph.logPen);
+        ResultGraph.svg.append("text")
+            .attr("class", 'lhc-dy-text')
+            .attr("x", 480)         
+            .attr("y", 400)         
+            .text('LHC DY');
+
+        // FB 36
+        this.renderFb(250, 200, '36.1 fb', 50);
+        // FB 1000
+        this.renderFb(250, 400, '1000 fb', 54);
+        
+
+        this.renderObserved(GraphSataticData.getResultObservedData());
+
+    }
+
+    private renderObserved(data) {
+        // rend line
+        ResultGraph.svg.append("path")
+		    .datum(data)
+            .attr("class", "line-result-observed")
+            .attr("d", ResultGraph.logPen);
+
+        ResultGraph.svg.selectAll(".circle")
+            .data(data)
+            .enter().append("circle")
+            .attr("cx", ResultGraph.logPen.x())
+            .attr("cy", ResultGraph.logPen.y())
+            .style("fill", "black")
+            .attr("r", 3);
+    }
+
+    private renderFb(x, y, text, plusX) {
+        ResultGraph.svg.append("text")
+            .attr("class", 'fb-text')
+            .attr("x", x)         
+            .attr("y", y)         
+            .text(text);
+        ResultGraph.svg.append("text")
+            .attr("class", 'fb-exponent-text')
+            .attr("x", x + plusX)         
+            .attr("y", y - 6)         
+            .text('-1');
     }
 }

@@ -1,1 +1,35 @@
 @import '../graph/graph.component.css';
+.ew-constraints-line {
+    fill: none;
+    stroke: brown;
+    stroke-width: 1.5px;
+}
+.line-result-observed {
+    fill: none;
+    stroke: red;
+    stroke-width: 1.5px;
+}
+.constraints-text {
+    fill: black;
+    font-size: 18px;
+}
+.lhc-dy-line {
+    fill: none;
+    stroke: blue;
+    stroke-width: 1.5px;
+}
+.lhc-dy-text {
+    fill: blue;
+    font-size: 18px;
+}
+
+.fb-text {
+    fill: blue;
+    font-weight: 600;
+    font-size: 16px;
+}
+.fb-exponent-text {
+    fill: blue;
+    font-weight: 600;
+    font-size: 12px;
+}

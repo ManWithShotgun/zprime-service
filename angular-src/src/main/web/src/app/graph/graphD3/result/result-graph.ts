@@ -10,7 +10,7 @@ export class ResultGraph {
     public static y;
     public static logPen;
     private domainX = [500, 5000];
-    private domainY = [Math.pow(10, -4), Math.pow(10, -2)];
+    private domainY = [Math.pow(10, -5), Math.pow(10, -2)];
 
     public static renderSvg(conf): any {
         return ResultGraph.svg.append("svg:image")
@@ -123,7 +123,7 @@ export class ResultGraph {
 
         // LHC DY
         let lineView = ResultGraph.svg.append("path").style("stroke-dasharray", ("7, 4, 4, 4"));
-        lineView.datum([[4250, 0.0001], [4250, 0.00336]]);
+        lineView.datum([[4250, 0.00001], [4250, 0.00336]]);
         lineView.attr("class", "lhc-dy-line");
         lineView.attr("d", ResultGraph.logPen);
         ResultGraph.svg.append("text")
@@ -133,9 +133,10 @@ export class ResultGraph {
             .text('LHC DY');
 
         // FB 36
-        this.renderFb(250, 200, '36.1 fb', 50);
+        this.renderFb(250, 150, '36.1 fb', 50);
         // FB 1000
-        this.renderFb(250, 400, '1000 fb', 54);
+        this.renderFb(250, 200, '100 fb', 50);
+        this.renderFb(250, 260, '1000 fb', 54);
         
 
         this.renderObserved(GraphSataticData.getResultObservedData());
@@ -150,8 +151,10 @@ export class ResultGraph {
         let points = new LinePoints(data);
         let dataLines = points.getData().filter(line => {return line[0] > 500});
         this.renderLine(dataLines);
-        let thousandFbLines = dataLines.map(line => {return [line[0], line[1] / 1.3]});
+        let thousandFbLines = dataLines.map(line => {return [line[0], line[1] * 0.19]});
         this.renderLine(thousandFbLines);
+        let hangredFbLines = dataLines.map(line => {return [line[0], line[1] * 0.66]});
+        this.renderLine(hangredFbLines);
     }
 
     private renderLine(data) {

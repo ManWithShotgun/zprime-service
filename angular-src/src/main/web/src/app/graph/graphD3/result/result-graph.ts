@@ -112,18 +112,18 @@ export class ResultGraph {
 
         // EW constraints
         let constraintsLine = ResultGraph.svg.append("path").style("stroke-dasharray", ("7, 4, 4, 4"));
-        constraintsLine.datum([[500, 0.00336], [5000, 0.00336]]);
+        constraintsLine.datum([[500, 0.00257], [5000, 0.00257]]);
         constraintsLine.attr("class", "ew-constraints-line");
         constraintsLine.attr("d", ResultGraph.logPen);
         ResultGraph.svg.append("text")
             .attr("class", 'constraints-text')
             .attr("x", 280)         
-            .attr("y", 90)         
+            .attr("y", 75)         
             .text('EW constraints');
 
         // LHC DY
         let lineView = ResultGraph.svg.append("path").style("stroke-dasharray", ("7, 4, 4, 4"));
-        lineView.datum([[4250, 0.00001], [4250, 0.00336]]);
+        lineView.datum([[4250, 0.00001], [4250, 0.00257]]);
         lineView.attr("class", "lhc-dy-line");
         lineView.attr("d", ResultGraph.logPen);
         ResultGraph.svg.append("text")

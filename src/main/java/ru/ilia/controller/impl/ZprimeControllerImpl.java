@@ -59,6 +59,17 @@ public class ZprimeControllerImpl implements ZprimeController {
         @RequestParam("recalc") String recalc
     ) {
         try {
+            if ("0".equals(ksi)) {
+                importDataService.importData("0.01", events, recalc);
+                importDataService.importData("0.001", events, recalc);
+                importDataService.importData("0.002", events, recalc);
+                importDataService.importData("0.003", events, recalc);
+                importDataService.importData("0.005", events, recalc);
+                importDataService.importData("0.0005", events, recalc);
+                importDataService.importData("0.0006", events, recalc);
+                importDataService.importData("0.0008", events, recalc);
+                return "Imported all";
+            }
             importDataService.importData(ksi, events, recalc);
         } catch (IOException e) {
             log.error(e.getMessage(), e);

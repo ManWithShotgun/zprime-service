@@ -119,6 +119,8 @@ docker stop zprime
 docker run -v d:/MyPrograms/Java/_spring/zprime-service/target:/data -p 8080:8080 -p 8000:8000 --name zprime --rm=true zprime:demo
 docker run -v d:/Root/MyPrograms/Java/zprime-service/target:/data -p 8080:8080 -p 8000:8000 --name zprime --rm=true zprime:demo
 
+sudo docker run -p 8080:8080 -d manwithshotgun/zprime:prod
+
 # Copy result to host
 
 docker cp <containderId>:/app/pythia8226_export/zprime/table_0.003.txt table_0.003.txt

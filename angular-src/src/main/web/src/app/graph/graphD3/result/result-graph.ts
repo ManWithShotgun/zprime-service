@@ -9,7 +9,7 @@ export class ResultGraph {
     public static x;
     public static y;
     public static logPen;
-    private domainX = [500, 5000];
+    private domainX = [500, 6000];
     private domainY = [Math.pow(10, -5), Math.pow(10, -2)];
 
     public static renderSvg(conf): any {
@@ -112,7 +112,7 @@ export class ResultGraph {
 
         // EW constraints
         let constraintsLine = ResultGraph.svg.append("path").style("stroke-dasharray", ("7, 4, 4, 4"));
-        constraintsLine.datum([[500, 0.00257], [5000, 0.00257]]);
+        constraintsLine.datum([[500, 0.00257], [6000, 0.00257]]);
         constraintsLine.attr("class", "ew-constraints-line");
         constraintsLine.attr("d", ResultGraph.logPen);
         ResultGraph.svg.append("text")
@@ -121,22 +121,44 @@ export class ResultGraph {
             .attr("y", 75)         
             .text('EW constraints');
 
-        // LHC DY
+        // LHC DY (36.1 fb)
         let lineView = ResultGraph.svg.append("path").style("stroke-dasharray", ("7, 4, 4, 4"));
         lineView.datum([[4250, 0.00001], [4250, 0.00257]]);
         lineView.attr("class", "lhc-dy-line");
         lineView.attr("d", ResultGraph.logPen);
         ResultGraph.svg.append("text")
             .attr("class", 'lhc-dy-text')
+            .attr("x", 380)         
+            .attr("y", 380)         
+            .text('LHC DY');
+        ResultGraph.svg.append("text")
+            .attr("class", 'lhc-dy-text')
+            .attr("x", 380)         
+            .attr("y", 400)         
+            .text('(36.1/fb)');
+
+        // LHC DY (139 fb)
+        let lineView2 = ResultGraph.svg.append("path").style("stroke-dasharray", ("7, 4, 4, 4"));
+        lineView2.datum([[5100, 0.00001], [5100, 0.00257]]);
+        lineView2.attr("class", "lhc-dy-line");
+        lineView2.attr("d", ResultGraph.logPen);
+        ResultGraph.svg.append("text")
+            .attr("class", 'lhc-dy-text')
+            .attr("x", 480)         
+            .attr("y", 380)         
+            .text('LHC DY');
+        ResultGraph.svg.append("text")
+            .attr("class", 'lhc-dy-text')
             .attr("x", 480)         
             .attr("y", 400)         
-            .text('LHC DY');
+            .text('(139.1/fb)');
 
         // FB 36
         this.renderFb(250, 150, '36.1 fb', 50);
         // FB 1000
         this.renderFb(250, 200, '100 fb', 50);
         this.renderFb(250, 260, '1000 fb', 54);
+        this.renderFb(250, 310, '3000 fb', 54);
         
 
         this.renderObserved(GraphSataticData.getResultObservedData());
@@ -155,6 +177,8 @@ export class ResultGraph {
         this.renderLine(thousandFbLines);
         let hangredFbLines = dataLines.map(line => {return [line[0], line[1] * 0.66]});
         this.renderLine(hangredFbLines);
+        let threeThousandFbLines = dataLines.map(line => {return [line[0], line[1] * 0.109]});
+        this.renderLine(threeThousandFbLines);
     }
 
     private renderLine(data) {

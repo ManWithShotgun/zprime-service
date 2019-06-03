@@ -1,14 +1,14 @@
 <form [formGroup]="requestData" novalidate>
   <mat-card>
     <mat-card-header>
-      <mat-card-title>Request point</mat-card-title>
-      <mat-card-subtitle>Send request to calculate and render new point</mat-card-subtitle>
+      <mat-card-title>{{ 'CONTROLS.POINT.TITLE' | translate }}</mat-card-title>
+      <mat-card-subtitle>{{ 'CONTROLS.POINT.SUBTITLE' | translate }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Ksi" formControlName="ksi">
+            <input matInput placeholder="{{ 'CONTROLS.POINT.KSI_TITLE' | translate }}" formControlName="ksi">
             <mat-error *ngIf="requestData.controls['ksi'].hasError('required')">
               Ksi is <strong>required</strong>
             </mat-error>
@@ -19,7 +19,7 @@
         </div>
         <div class="col">
             <mat-form-field class="full-width">
-              <input matInput placeholder="Mass" formControlName="mass">
+              <input matInput placeholder="{{ 'CONTROLS.POINT.MASS_TITLE' | translate }}" formControlName="mass">
               <mat-error *ngIf="requestData.controls['mass'].hasError('required')">
                 Mass is <strong>required</strong>
               </mat-error>

@@ -1,10 +1,40 @@
 {
-  "HOME": {
-    "TITLE": "Z' проект",
-    "SELECT": "FR Changer la langue"
+  "MENU": {
+    "TITLE": "Menu",
+    "HEAD_TITLE": "Z' project",
+    "WELCOME_TITLE": "Welcome",
+    "GRAPH_TITLE": "Graph",
+    "RESULT_GRAPH_TITLE": "Result Graph",
+    "STATISTIC_TITLE": "Statistic"
   },
   "WELCOME": {
     "CHAPTER": "Программный комплекс для имитационного моделирования рождения Z’-бозонов в протон-протонных столкновениях с учетом эффектов Z-Z’ смешивания",
     "TEXT": "Изучение появления электрослабых бозонов дает мощную проверку спонтанного нарушения калибровочной симметрии стандартной модели (СМ) и может быть использовано для поиска новых явлений за пределами СМ. Дополнительные нейтральные векторные бозоны $Z^\\prime$, распадающиеся на заряженные пары калибровочных векторных бозонов $W^+W^-$, прогнозируются во многих сценариях новой физики, включая модели с расширенным калибровочным сектором."
+  },
+  "CONTROLS": {
+    "REQUIRED": "required",
+    "SUBMIT_TITLE": "Submit",
+    "LINE": {
+      "TITLE": "Request line",
+      "SUBTITLE": "Send request to calculate and render new line",
+      "KSI_TITLE": "Ksi",
+      "EVENTS_COUNT_TITLE": "Count of modulated collision events",
+      "CYCLES_TITLE": "Count of recalculation a point with random seed"
+    },
+    "POINT": {
+      "TITLE": "Request point",
+      "SUBTITLE": "Send request to calculate and render new point",
+      "KSI_TITLE": "Ksi",
+      "MASS_TITLE": "Mass",
+      "EVENTS_COUNT_TITLE": "Count of modulated collision events",
+      "CYCLES_TITLE": "Count of recalculation a point with random seed"
+    },
+    "PROGRESS_BAR": {
+      "TITLE": "Progress bar configuration",
+      "IN_PROGRESS_TITLE": "In progress",
+      "REQUEST_LIMIT_TITLE": "In progress request limit",
+      "QUEUE_TITLE": "Queue",
+      "COMPLETED_TITLE": "Completed"
+    }
   }
 }

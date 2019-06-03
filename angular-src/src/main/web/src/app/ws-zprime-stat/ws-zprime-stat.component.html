@@ -1,18 +1,18 @@
 <mat-card class="example-card">
   <mat-card-content>
-      <h2 class="example-h2">Progress bar configuration</h2>
+      <h2 class="example-h2">{{ 'CONTROLS.PROGRESS_BAR.TITLE' | translate }}</h2>
       <section class="example-section">
           <p>
-            <span [matBadge]="websoketService.getRequestsInProgress()" matBadgeOverlap="false">In progress</span>
+            <span [matBadge]="websoketService.getRequestsInProgress()" matBadgeOverlap="false">{{ 'CONTROLS.PROGRESS_BAR.IN_PROGRESS_TITLE' | translate }}</span>
           </p>
           <p>
-              <span [matBadge]="websoketService.getRequestsLimit()" matBadgeOverlap="false" matBadgeColor="warn">In progress request limit</span>
+              <span [matBadge]="websoketService.getRequestsLimit()" matBadgeOverlap="false" matBadgeColor="warn">{{ 'CONTROLS.PROGRESS_BAR.REQUEST_LIMIT_TITLE' | translate }}</span>
           </p>
           <p>
-              <span [matBadge]="websoketService.getQueueLength()" matBadgeOverlap="false" matBadgeColor="warn">Queue</span>
+              <span [matBadge]="websoketService.getQueueLength()" matBadgeOverlap="false" matBadgeColor="warn">{{ 'CONTROLS.PROGRESS_BAR.QUEUE_TITLE' | translate }}</span>
           </p>
           <p>
-            <span [matBadge]="websoketService.getRequestsCompleted()" matBadgeOverlap="false" matBadgeColor="accent">Completed</span>
+            <span [matBadge]="websoketService.getRequestsCompleted()" matBadgeOverlap="false" matBadgeColor="accent">{{ 'CONTROLS.PROGRESS_BAR.COMPLETED_TITLE' | translate }}</span>
           </p>
 
           <mat-progress-bar

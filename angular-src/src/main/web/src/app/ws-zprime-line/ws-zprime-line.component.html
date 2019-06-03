@@ -10,10 +10,10 @@
           <mat-form-field class="full-width">
             <input matInput placeholder="{{ 'CONTROLS.LINE.KSI_TITLE' | translate }}" formControlName="ksi">
             <mat-error *ngIf="requestData.controls['ksi'].hasError('required')">
-              Ksi is <strong>required</strong>
+              {{ 'CONTROLS.LINE.KSI_TITLE' | translate }} <strong>{{ 'CONTROLS.IS_REQUIRED' | translate }}</strong>
             </mat-error>
             <mat-error *ngIf="requestData.controls['ksi'].hasError('isNotDouble')">
-              Ksi should be <strong>a double</strong>
+              {{ 'CONTROLS.LINE.KSI_TITLE' | translate }} <strong>{{ 'CONTROLS.SHOULD_BE_DOUBLE' | translate }}</strong>
             </mat-error>
           </mat-form-field>
         </div>
@@ -28,19 +28,19 @@
           <mat-form-field class="full-width">
             <input matInput placeholder="{{ 'CONTROLS.LINE.EVENTS_COUNT_TITLE' | translate }}" formControlName="events">
             <mat-error *ngIf="requestData.controls['events'].hasError('required')">
-              Events is <strong>required</strong>
+              {{ 'CONTROLS.LINE.EVENTS' | translate }} <strong>{{ 'CONTROLS.IS_REQUIRED' | translate }}</strong>
             </mat-error>
             <mat-error *ngIf="requestData.controls['events'].hasError('isNotDouble')">
-              Events field should be <strong>a double</strong>
+              {{ 'CONTROLS.LINE.EVENTS' | translate }} <strong>{{ 'CONTROLS.SHOULD_BE_DOUBLE' | translate }}</strong>
             </mat-error>
           </mat-form-field>
           <mat-form-field class="full-width">
             <input matInput placeholder="{{ 'CONTROLS.LINE.CYCLES_TITLE' | translate }}" formControlName="cycles">
             <mat-error *ngIf="requestData.controls['cycles'].hasError('required')">
-              Cycles is <strong>required</strong>
+              {{ 'CONTROLS.LINE.CYCLES' | translate }} <strong>{{ 'CONTROLS.IS_REQUIRED' | translate }}</strong>
             </mat-error>
             <mat-error *ngIf="requestData.controls['cycles'].hasError('isNotDouble')">
-              Cycles field should be <strong>a double</strong>
+              {{ 'CONTROLS.LINE.CYCLES' | translate }} <strong>{{ 'CONTROLS.SHOULD_BE_DOUBLE' | translate }}</strong>
             </mat-error>
           </mat-form-field>
         </div>
@@ -52,7 +52,7 @@
     <!-- lines section -->
     <div class="row row-line" *ngFor="let ksi of getLinesInfo()" (click)="removeLine(ksi.key)">
       <div class="col mat-stroked-button col-line">
-          <p>Line KSI {{ ksi.label }} </p>
+          <p>{{ 'CONTROLS.LINE.LINE_KSI' | translate }} {{ ksi.label }} </p>
       </div>
       <div class="col">
         <button type="button" (click)="removeLine(ksi.key)">

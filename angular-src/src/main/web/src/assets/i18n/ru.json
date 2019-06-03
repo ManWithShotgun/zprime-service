@@ -12,14 +12,18 @@
     "TEXT": "Изучение появления электрослабых бозонов дает мощную проверку спонтанного нарушения калибровочной симметрии стандартной модели (СМ) и может быть использовано для поиска новых явлений за пределами СМ. Дополнительные нейтральные векторные бозоны $Z^\\prime$, распадающиеся на заряженные пары калибровочных векторных бозонов $W^+W^-$, прогнозируются во многих сценариях новой физики, включая модели с расширенным калибровочным сектором."
   },
   "CONTROLS": {
-    "REQUIRED": "required",
+    "IS_REQUIRED": "is required",
+    "SHOULD_BE_DOUBLE": "should be a double",
     "SUBMIT_TITLE": "Submit",
     "LINE": {
       "TITLE": "Request line",
       "SUBTITLE": "Send request to calculate and render new line",
       "KSI_TITLE": "Ksi",
       "EVENTS_COUNT_TITLE": "Count of modulated collision events",
-      "CYCLES_TITLE": "Count of recalculation a point with random seed"
+      "CYCLES_TITLE": "Count of recalculation a point with random seed",
+      "EVENTS": "Events",
+      "CYCLES": "Cycles",
+      "LINE_KSI": "Line with KSI"
     },
     "POINT": {
       "TITLE": "Request point",

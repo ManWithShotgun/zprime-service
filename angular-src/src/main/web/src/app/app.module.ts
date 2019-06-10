@@ -25,6 +25,7 @@ import {
     MatTableModule,
     MatToolbarModule
 } from '@angular/material';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatBadgeModule} from '@angular/material/badge';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -39,7 +40,7 @@ const appRoutes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
   { path: 'graph-1', component: Graph },
   { path: 'graph-2', component: ResultGraphComponent },
-  { path: 'statistic', component: WelcomeComponent },
+  { path: 'statistic', component: WsZprimeStatComponent },
   { path: '',
     redirectTo: '/welcome',
     pathMatch: 'full'
@@ -72,6 +73,7 @@ const appRoutes: Routes = [
     MatSelectModule,
     MatRadioModule,
     MatProgressBarModule,
+    MatSlideToggleModule,
     MatBadgeModule,
     ReactiveFormsModule
   ],

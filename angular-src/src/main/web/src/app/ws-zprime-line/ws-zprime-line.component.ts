@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {MainGraphService} from '../graph/main-graph.service';
 import {DoubleValidator} from '../ws-control/double.validator';
+import {AuthServiceService} from '../auth-service.service';
 
 @Component({
   selector: 'app-ws-zprime-line',
@@ -16,7 +17,9 @@ export class WsZprimeLineComponent implements OnInit {
     cycles: [null, [Validators.required]],
   });
 
-  constructor(private fb: FormBuilder, public mainGraphService: MainGraphService) { }
+  constructor(private fb: FormBuilder, public mainGraphService: MainGraphService, private authService: AuthServiceService) { 
+    authService.userIsAdmin();
+  }
 
   ngOnInit() {
     
@@ -39,7 +42,7 @@ export class WsZprimeLineComponent implements OnInit {
     return this.mainGraphService.getLinesInfo()
     .map(lineKey => {
       let info = lineKey.split('_');
-      let label = info[0] + ' (Events: ' + info[1] + ' Cycles: ' + info[2] + ')';
+      let label = info[0] + ' (Кол-во событий: ' + info[1] + ' Кол-во циклов: ' + info[2] + ')';
       return {label, key: lineKey};
       // return label;
     });

@@ -8,3 +8,9 @@
 .row-line {
     margin-bottom: 10px;
 }
+
+.remove-button {
+    margin-top: 7px;
+    background: transparent;
+    border: 0ch;
+}

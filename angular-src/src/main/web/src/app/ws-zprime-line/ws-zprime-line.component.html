@@ -19,7 +19,7 @@
         </div>
         <div class="col">
           <mat-card-actions>
-            <button mat-raised-button color="primary" type="submit" (click)="requestLine()" [disabled]="!requestData.valid">Submit</button>
+            <button mat-raised-button color="primary" type="submit" (click)="requestLine()" [disabled]="!requestData.valid">{{ 'CONTROLS.SUBMIT_TITLE' | translate }}</button>
           </mat-card-actions>
         </div>
       </div>
@@ -45,7 +45,7 @@
           </mat-form-field>
         </div>
         <div class="col">
-          
+          <mat-slide-toggle *ngIf="this.authService.isAdministrator()">{{ 'CONTROLS.OFFLINE_CALC' | translate }}</mat-slide-toggle>
         </div>
       </div>
     </form>
@@ -55,7 +55,7 @@
           <p>{{ 'CONTROLS.LINE.LINE_KSI' | translate }} {{ ksi.label }} </p>
       </div>
       <div class="col">
-        <button type="button" (click)="removeLine(ksi.key)">
+        <button class="remove-button" type="button" (click)="removeLine(ksi.key)">
           <mat-icon>highlight_off</mat-icon>
         </button>
       </div>

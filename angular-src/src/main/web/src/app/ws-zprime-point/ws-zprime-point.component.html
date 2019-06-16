@@ -16,8 +16,6 @@
               Ksi should be <strong>a double</strong>
             </mat-error>
           </mat-form-field>
-        </div>
-        <div class="col">
             <mat-form-field class="full-width">
               <input matInput placeholder="{{ 'CONTROLS.POINT.MASS_TITLE' | translate }}" formControlName="mass">
               <mat-error *ngIf="requestData.controls['mass'].hasError('required')">
@@ -34,6 +32,30 @@
           </mat-card-actions>
         </div>
       </div>
+      <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="{{ 'CONTROLS.LINE.EVENTS_COUNT_TITLE' | translate }}" formControlName="events">
+              <mat-error *ngIf="requestData.controls['events'].hasError('required')">
+                {{ 'CONTROLS.LINE.EVENTS' | translate }} <strong>{{ 'CONTROLS.IS_REQUIRED' | translate }}</strong>
+              </mat-error>
+              <mat-error *ngIf="requestData.controls['events'].hasError('isNotDouble')">
+                {{ 'CONTROLS.LINE.EVENTS' | translate }} <strong>{{ 'CONTROLS.SHOULD_BE_DOUBLE' | translate }}</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full-width">
+              <input matInput placeholder="{{ 'CONTROLS.LINE.CYCLES_TITLE' | translate }}" formControlName="cycles">
+              <mat-error *ngIf="requestData.controls['cycles'].hasError('required')">
+                {{ 'CONTROLS.LINE.CYCLES' | translate }} <strong>{{ 'CONTROLS.IS_REQUIRED' | translate }}</strong>
+              </mat-error>
+              <mat-error *ngIf="requestData.controls['cycles'].hasError('isNotDouble')">
+                {{ 'CONTROLS.LINE.CYCLES' | translate }} <strong>{{ 'CONTROLS.SHOULD_BE_DOUBLE' | translate }}</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+          </div>
+        </div>
     </mat-card-content>
   </mat-card>
 </form>

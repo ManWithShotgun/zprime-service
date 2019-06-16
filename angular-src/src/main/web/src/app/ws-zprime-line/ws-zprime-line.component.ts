@@ -17,7 +17,7 @@ export class WsZprimeLineComponent implements OnInit {
     cycles: [null, [Validators.required]],
   });
 
-  constructor(private fb: FormBuilder, public mainGraphService: MainGraphService, private authService: AuthServiceService) { 
+  constructor(private fb: FormBuilder, public mainGraphService: MainGraphService, public authService: AuthServiceService) { 
     authService.userIsAdmin();
   }
 

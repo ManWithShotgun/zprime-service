@@ -12,6 +12,8 @@ export class WsZprimePointComponent implements OnInit {
   requestData = this.fb.group({
     ksi: [null, [Validators.required, DoubleValidator.isDouble]],
     mass: [null, [Validators.required, DoubleValidator.isDouble]],
+    events: [null, [Validators.required]],
+    cycles: [null, [Validators.required]]
   });
 
   constructor(private fb: FormBuilder) { }

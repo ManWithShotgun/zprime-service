@@ -119,6 +119,11 @@ docker stop zprime
 docker run -v d:/MyPrograms/Java/_spring/zprime-service/target:/data -p 8080:8080 -p 8000:8000 --name zprime --rm=true zprime:demo
 docker run -v d:/Root/MyPrograms/Java/zprime-service/target:/data -p 8080:8080 -p 8000:8000 --name zprime --rm=true zprime:demo
 
+mvn clean package
+dockerfile.prod
+docker build -t manwithshotgun/zprime:prod .
+docker push manwithshotgun/zprime:prod
+sudo docker pull manwithshotgun/zprime:prod
 sudo docker run -p 8080:8080 -d manwithshotgun/zprime:prod
 
 # Copy result to host
